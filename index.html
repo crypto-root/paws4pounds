@@ -20,7 +20,8 @@
     .header-image {
       width: 30%;
       max-width: 300px;
-      margin-bottom: 20px;
+      margin: 0 auto 20px; /* centers the image */
+      display: block;
     }
     .terminal {
       background-color: #000;
@@ -138,7 +139,7 @@
 </head>
 <body>
   <div class="terminal">
-    <img src="paws.png" alt="Anonymous Header" class="header-image">
+    <img src="paws.png" alt="Mystical Feline Emblem" class="header-image">
     <div class="header">
       <h1>𓃠 Paws for Pounds ($PFP)</h1>
       <p>$PFP TERMINAL v1.1.0</p>
@@ -149,14 +150,14 @@
       Established 2024 | Protocol: PAWv2.3.1
     </div>
     <div class="input-group">
-      <label for="username">Operator ID:</label>
-      <input type="text" id="username" placeholder="Enter credentials" />
+      <label for="username">Feline Operator ID:</label>
+      <input type="text" id="username" placeholder="Enter your Purr-Verified ID" />
     </div>
     <div class="input-group">
-      <label for="password">Verification Key:</label>
-      <input type="password" id="password" placeholder="Enter passphrase" />
+      <label for="password">Paws Passphrase:</label>
+      <input type="password" id="password" placeholder="FELINE-KEY-ID" />
     </div>
-    <button onclick="generateCatPaw()">Initiate Paw Generation</button>
+    <button onclick="generateCatPaw()">Initiate Paws Protocol</button>
     <div id="output" class="output"></div>
   </div>
 
@@ -224,11 +225,13 @@
       if (username && password) {
         output.innerHTML = `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Initializing PAWv2 protocol...</p>`;
         await delay(800);
-        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Authenticating operator...</p>`;
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Authenticating feline operator...</p>`;
         await delay(800);
-        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Accessing feline genome...</p>`;
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Accessing catnip archives...</p>`;
         await delay(1200);
-        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Synthesizing traits...</p>`;
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Synthesizing purr-sonal traits...</p>`;
+        await delay(1500);
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Pussy-check completed.</p>`;
         await delay(1500);
 
         const paw = catPaws[Math.floor(Math.random() * catPaws.length)];
@@ -253,7 +256,7 @@
             <p>CODENAME: ${paw.code}</p>
             <p>ARCHIVED LORE: ${paw.lore}</p>
           </div>
-          <button id="downloadBtn" onclick="downloadPaw()">Download Description</button>
+          <button id="downloadBtn" onclick="downloadPaw()">Adopt Feline</button>
         `;
       } else {
         output.innerHTML = "<p class='loading'>⚠️ Authentication required</p>";
