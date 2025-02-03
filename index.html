@@ -91,7 +91,7 @@
       background: linear-gradient(135deg, #111, #222);
       border: 1px solid #0f0;
       padding: 20px;
-      margin: 20px auto;
+      margin: auto;
       border-radius: 10px;
       white-space: pre;
       line-height: 1.1;
@@ -119,10 +119,19 @@
       }
     }
 
+    /* Updated styling to resemble a terminal entry */
     .paw-details {
+      background-color: #000;
+      border-left: 3px solid #0f0;
+      padding: 15px;
       margin-top: 15px;
-      padding: 10px;
-      border-top: 1px dashed #0f03;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .paw-details p {
+      margin: 5px 0;
     }
 
     .loading {
@@ -250,13 +259,13 @@
             <pre>${paw.ascii}</pre>
           </div>
           <div class="paw-details">
-            <p>IDENTITY: ${paw.name}</p>
-            <p>RARITY: [${paw.rarity}]</p>
-            <p>TRAITS: ${paw.traits.join(" • ")}</p>
-            <p>CODENAME: ${paw.code}</p>
-            <p>ARCHIVED LORE: ${paw.lore}</p>
+            IDENTITY: ${paw.name}
+            RARITY: [${paw.rarity}]
+            TRAITS: ${paw.traits.join(" • ")}
+            CODENAME: ${paw.code}
+            ARCHIVED LORE: ${paw.lore}
           </div>
-          <button id="downloadBtn" onclick="downloadPaw()">Adopt Feline</button>
+          <button id="downloadBtn" onclick="downloadPaw()">Download Description</button>
         `;
       } else {
         output.innerHTML = "<p class='loading'>⚠️ Authentication required</p>";
