@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paws for Pounds ($PFP)</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .terminal {
+      background-color: #000;
+      padding: 30px;
+      border: 2px solid #0f0;
+      width: 90%;
+      max-width: 700px;
+      min-height: 500px;
+      overflow-y: auto;
+      box-shadow: 0 0 15px #0f03;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .description {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0f08;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .input-group input {
+      background-color: #111;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 8px;
+      width: 100%;
+      font-family: monospace;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #0f0;
+      border: none;
+      color: #000;
+      padding: 12px 24px;
+      font-family: monospace;
+      cursor: pointer;
+      width: 80%;
+      margin: 20px auto;
+      display: block;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0c0;
+    }
+
+    .paw-box {
+      background: linear-gradient(135deg, #111, #222);
+      border: 1px solid #0f0;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      white-space: pre;
+      line-height: 1.1;
+      font-size: 16px;
+      max-width: fit-content;
+      text-align: center;
+      animation: pop 0.5s ease-out;
+    }
+
+    /* Glowing neon text effect for the ASCII art */
+    .paw-box pre {
+      margin: 0;
+      color: #0f0;
+      text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .paw-details {
+      margin-top: 15px;
+      padding: 10px;
+      border-top: 1px dashed #0f03;
+    }
+
+    .loading {
+      color: #0f0;
+      font-style: italic;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .output {
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="header">
+      <h1>𓃠 Paws for Pounds ($PFP)</h1>
+      <p>$PFP TERMINAL v1.1.0</p>
+    </div>
+    <div class="description">
+      [ Cryptographic Feline Generator ]<br />
+      A decentralized system for generating mystical cat paws with unique traits and lore<br />
+      Established 2024 | Protocol: PAWv2.3.1
+    </div>
+    <div class="input-group">
+      <label for="username">Operator ID:</label>
+      <input type="text" id="username" placeholder="Enter credentials" />
+    </div>
+    <div class="input-group">
+      <label for="password">Verification Key:</label>
+      <input type="password" id="password" placeholder="Enter passphrase" />
+    </div>
+    <button onclick="generateCatPaw()">Initiate Paw Generation</button>
+    <div id="output" class="output"></div>
+  </div>
+
+  <script>
+    const output = document.getElementById("output");
+    let currentPawText = ""; // Holds the generated paw's text and description
+
+    const catPaws = [
+      {
+        ascii: `  /\\_/\\  
+ ( o.o ) 
+  > ^ <  `,
+        rarity: "Common",
+        code: "PAW-001",
+        name: "Whiskers",
+        traits: ["Fluffy Tail", "Green Eyes", "Playful"],
+        lore: "The curious explorer. Its tail twitches at the scent of tuna."
+      },
+      {
+        ascii: `  /\\_/\\  
+ ( =.= ) 
+  > ^ <  `,
+        rarity: "Uncommon",
+        code: "PAW-002",
+        name: "Shadow",
+        traits: ["Night Vision", "Silent Paws", "Reflex Boost"],
+        lore: "Moves through darkness like liquid. Leaves no trace."
+      },
+      {
+        ascii: `  /\\_/\\  
+ ( ~.~ ) 
+  > ^ <  `,
+        rarity: "Rare",
+        code: "PAW-003",
+        name: "Luna",
+        traits: ["Moonlit Fur", "Dream Walker", "Celestial Purr"],
+        lore: "Bridges waking world and dreams. Guides lost souls."
+      },
+      {
+        ascii: `  /\\_/\\  
+ ( x.x ) 
+  > ^ <  `,
+        rarity: "Epic",
+        code: "PAW-004",
+        name: "Voidclaw",
+        traits: ["Reality Tear", "Eldritch Sight", "Entropy Resistance"],
+        lore: "Exists between dimensions. Collects forgotten memories."
+      },
+      {
+        ascii: `  /\\_/\\  
+ ( *.* ) 
+  > ^ <  `,
+        rarity: "Legendary",
+        code: "PAW-005",
+        name: "Stellaris",
+        traits: ["Nova Claws", "Gravity Defiance", "Quantum Whiskers"],
+        lore: "Born from collapsing stars. Protector of cosmic balance."
+      }
+    ];
+
+    async function generateCatPaw() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (username && password) {
+        output.innerHTML = `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Initializing PAWv2 protocol...</p>`;
+        await delay(800);
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Authenticating operator...</p>`;
+        await delay(800);
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Accessing feline genome...</p>`;
+        await delay(1200);
+        output.innerHTML += `<p class="loading">[ ${new Date().toLocaleTimeString()} ] Synthesizing traits...</p>`;
+        await delay(1500);
+
+        const paw = catPaws[Math.floor(Math.random() * catPaws.length)];
+        
+        // Create text content for display and download without extra blank lines
+        currentPawText =
+          `${paw.ascii}\n` +
+          `IDENTITY: ${paw.name}\n` +
+          `RARITY: [${paw.rarity}]\n` +
+          `TRAITS: ${paw.traits.join(" • ")}\n` +
+          `CODENAME: ${paw.code}\n` +
+          `ARCHIVED LORE: ${paw.lore}`;
+
+        output.innerHTML += `
+          <div class="paw-box">
+            <pre>${paw.ascii}</pre>
+          </div>
+          <div class="paw-details">
+            <p>IDENTITY: ${paw.name}</p>
+            <p>RARITY: [${paw.rarity}]</p>
+            <p>TRAITS: ${paw.traits.join(" • ")}</p>
+            <p>CODENAME: ${paw.code}</p>
+            <p>ARCHIVED LORE: ${paw.lore}</p>
+          </div>
+          <button id="downloadBtn" onclick="downloadPaw()">Download Description</button>
+        `;
+      } else {
+        output.innerHTML = "<p class='loading'>⚠️ Authentication required</p>";
+      }
+    }
+
+    function downloadPaw() {
+      const blob = new Blob([currentPawText], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "cat-paw.txt";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  </script>
+</body>
+</html>
